@@ -1,4 +1,5 @@
 package ru.ibs.appline.pages;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,7 +12,7 @@ public class StartPage extends BasePage {
     private WebElement btnCity;
 
 
-
+@Step("Закрываем значение города")
     public MainSearchBlock closeCity() {
         btnCity.click();
         return pageManager.getMainSearch();

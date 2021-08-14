@@ -9,8 +9,6 @@
     <version>1.0-SNAPSHOT</version>
 
 
-
-
     <properties>
 
         <!-- Encoding -->
@@ -28,6 +26,18 @@
         <selenium-java.version>3.141.59</selenium-java.version>
         <junit-jupiter.version>5.7.0</junit-jupiter.version>
         <junit-platform-launcher.version>1.7.0</junit-platform-launcher.version>
+
+
+        <maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
+        <junit-platform-surefire-provider.version>1.1.0</junit-platform-surefire-provider.version>
+        <allure-junit5.version>2.6.0</allure-junit5.version>
+
+        <!-- Dependencies Version -->
+        <selenium-java.version>3.141.59</selenium-java.version>
+        <junit.version>4.13.1</junit.version>
+        <allure-junit5>2.13.5</allure-junit5>
+        <aspectj.version>1.9.7</aspectj.version>
+
 
     </properties>
 
@@ -55,6 +65,14 @@
         </dependency>
 
 
+        <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-junit5 -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-junit5</artifactId>
+            <version>2.13.5</version>
+        </dependency>
+
+
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -62,14 +80,13 @@
             <version>1.18.20</version>
             <scope>provided</scope>
         </dependency>
-
-
     </dependencies>
 
 
     <build>
         <plugins>
 
+            <!-- Плагин, который отвечает за компиляцию как тестов так и в целом всех Java-классов -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -81,21 +98,65 @@
                 </configuration>
             </plugin>
 
+            <!-- Плагин, который отвечает за запуск тестов и сбор информации о состоянии тестов которые были запущены -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M5</version>
                 <configuration>
                     <testFailureIgnore>true</testFailureIgnore>
-                    <includes>
-                        <include>**/*Test.java</include>
-                    </includes>
+                    <includes>**/*Test.java</includes>
+                    <argLine>
+                        -Xmx1024m
+                        -Dfile.encoding=${encoding.type}
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                    </argLine>
+                    <systemPropertyVariables>
+                        <allure.results.directory>${project.build.directory}/reports/allure-results
+                        </allure.results.directory>
+                    </systemPropertyVariables>
+                    <properties>
+                        <property>
+                            <name>listener</name>
+                            <value>io.qameta.allure.junit5.AllureJunit5</value>
+                        </property>
+                    </properties>
                 </configuration>
+                <dependencies>
+                    <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjweaver</artifactId>
+                        <version>${aspectj.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
 
-        </plugins>
-    </build>
+            <!-- Плагин, который отвечает за формирование сайта Allure отчета -->
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.10.0</version>
+                <configuration>
+                    <reportVersion>2.10.0</reportVersion>
+                    <resultsDirectory>${project.build.directory}/reports/allure-results</resultsDirectory>
+                    <reportDirectory>${project.build.directory}/reports/allure-reports</reportDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>allure-plugin</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
+
+        </plugins>
+
+    </build>
 
 </project>
 

@@ -10,7 +10,7 @@ public class ThirdTest extends BaseTests {
     StartPage startPage = new StartPage();
 
 
-    @DisplayName("Третий тест")
+    @DisplayName("Проверка DNS shop")
     @Tag("TestGroup1")
     @Test
     void testCase() {

@@ -1,5 +1,6 @@
 package ru.ibs.appline.pages;
 
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
@@ -30,17 +31,20 @@ public class BasePage {
 
 
     //метод ожидания загрузки элемента
+    @Step("Ожидаем загрузку эллемента")
     protected WebElement waitUtilElementToBeVisible(WebElement element) {
         return wait.until(ExpectedConditions.visibilityOf(element));
     }
 
     //метод ожидания кликабельности элемента
+    @Step("Ожидаем кликабельность элемента")
     protected WebElement waitUtilElementToBeClickable(WebElement element) {
         return wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
 
     //удаление пробелов в string
+    @Step("Вспмогательный метод для преобразования строки в число, удаление пробело")
     protected String changeString(String string) {
         return string.trim().toLowerCase(Locale.ROOT).replaceAll("\\s+", "");
     }

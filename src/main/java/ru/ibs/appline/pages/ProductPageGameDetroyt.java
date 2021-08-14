@@ -1,8 +1,8 @@
 package ru.ibs.appline.pages;
 
 
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import ru.ibs.appline.pages.blockPages.MainSearchBlock;
@@ -23,14 +23,14 @@ public class ProductPageGameDetroyt  extends BasePage{
 
 
 
-
+@Step("Проверяем открытие страницы")
     public ProductPageGameDetroyt checkOpenProductPage() {
         Assertions.assertEquals("Игра Detroit: Стать человеком (PS4)", headerProductDetroyt.getText(), "Заголовок не соответствует странице");
     return this;
 
     }
 
-
+    @Step("Добавляем игру в корзину")
     public  MainSearchBlock buyGame(){
         buyDtroytBtn.click();
         return new MainSearchBlock();

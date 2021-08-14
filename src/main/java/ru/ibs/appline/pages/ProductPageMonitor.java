@@ -1,5 +1,6 @@
 package ru.ibs.appline.pages;
 
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -31,31 +32,33 @@ public class ProductPageMonitor extends BasePage {
 //    @FindBy(xpath = ("//div[@class='container']//input[@name='q']"))
 //    public WebElement searchInput;
 
-
+@Step("Проверяем открытие страницы выбранного монитора")
     public ProductPageMonitor checkOpenProductPage() {
         Assertions.assertEquals("24\" Монитор Samsung Odyssey G3 F24G35TFWI черный", headerProductMonitor.getText(), "Заголовок не соответствует странице");
         return this;
     }
 
+    @Step("Выбираем гарантию")
     public ProductPageMonitor getGaranty() {
         //wait.until(ExpectedConditions.visibilityOf(guarantee));
         guarantee.click();
         return this;
     }
 
-
+    @Step("Добавляем расширенную гарантию")
     public ProductPageMonitor getAdditGuarantee() {
         //wait.until(ExpectedConditions.elementToBeClickable(additGuarantee));
         additGuarantee.click();
         return this;
     }
 
+    @Step("Проверяем цену Выбранного Монитора")
     public ProductPageMonitor chekPrice() {
         Assertions.assertEquals(price.getAttribute("innerText"), "15 879 \u20BD", "Сумма товара не соответствует покупке");
         return this;
     }
 
-
+    @Step("Проверяем цену Выбранного Монитора")
     public MainSearchBlock buyMonitor() {
         buyMonitorBtn.click();
         return new MainSearchBlock();
