@@ -29,15 +29,30 @@ public class ShopBusket extends BasePage {
 
     @Step("Получаем сумму корзины")
     public ShopBusket getPrices() {
+        int summ = 0;
         for (WebElement element : listProductsInBusket) {
-            element.getAttribute("innerText");
+         summ=summ+getIntFromString(deleteLastSymb(element.getAttribute("innerText")));
+
         }
         return this;
     }
 
+//!!!
+    public int getPricesSumm() {
+        int summ = 0;
+        for (WebElement element : listProductsInBusket) {
+            summ+=getIntFromString(deleteLastSymb(element.getAttribute("innerText")));
+        }
+        return summ;
+    }
+
+
     @Step("Проверяем сумму покупок и сумму в корзине")
     public ShopBusket chekSumOfProduct() {
-        //Assertions.assertEquals(summOfProducts.getAttribute("innerText").equals("18 778"), "Сумма покупок не равна сумме товаров123");
+        System.out.println("общая сумма покупок из коллекции" + (getPricesSumm()));
+        System.out.println(getIntFromString(changeString(summOfProducts.getAttribute("innerText"))));
+        //Assertions.assertTrue((getPricesSumm())==(getIntFromString(changeString(summOfProducts.getAttribute("innerText")))), "Сумма покупок не равна сумме товаров");
+
         return this;
     }
 
@@ -56,8 +71,13 @@ public class ShopBusket extends BasePage {
 
 @Step("Добавляем монитор в корзину")
     public void plusOneMonitor(int stuff) {
-        for (int i = 0; i < stuff; i++) {
-            plusMonitor.click();
+        if (stuff <= 0){
+            return;
+        }else {
+            for (int i = 0; i < stuff; i++) {
+                plusMonitor.click();
+        }
+
         }
     }
 

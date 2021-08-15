@@ -55,6 +55,12 @@ public class BasePage {
     }
 
 
+
+    //удаление знака рубля
+    protected String deleteLastSymb(String string) {
+        return string = string.substring(0, string.length() - 1);
+    }
+
     public void closeDynamicPopUp() {
         driverManager.getDriver().manage().timeouts().implicitlyWait(500, TimeUnit.MILLISECONDS);
         try {

@@ -14,7 +14,7 @@ public class ThirdTest extends BaseTests {
     @Tag("TestGroup1")
     @Test
     void testCase() {
-
+//Монитор  detroyt
 
         //Assertions.assertNotNull(startPage, "объект не иницилизирован");
         app.getStartPage()

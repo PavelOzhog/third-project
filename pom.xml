@@ -118,7 +118,7 @@
                     <properties>
                         <property>
                             <name>listener</name>
-                            <value>io.qameta.allure.junit5.AllureJunit5</value>
+                            <value>ru.ibs.appline.framework.utils.MyAllureListener</value>
                         </property>
                     </properties>
                 </configuration>
@@ -145,7 +145,7 @@
                 <executions>
                     <execution>
                         <id>allure-plugin</id>
-                        <phase>install</phase>
+                        <phase>verify</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
